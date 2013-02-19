@@ -13,7 +13,7 @@ package
 	/*
 	
 	1. BG Music
-	2. Finish About Screen
+	2. Finish About Screen and over screen
 	3. Prep Play assets for store
 	
 	*/
@@ -35,15 +35,15 @@ package
 		
 		private function loaderInfo_completeHandler(event:Event):void
 		{
-			Starling.handleLostContext = true;
-			Starling.multitouchEnabled = true;
+			//Starling.handleLostContext = true;
+			//Starling.multitouchEnabled = true;
 			this._starling = new Starling(Main, this.stage);
 			//this._starling.showStats = true;
 			this._starling.start();
-			this.stage.addEventListener(Event.RESIZE, stage_resizeHandler, false, int.MAX_VALUE, true);
-			this.stage.addEventListener(Event.DEACTIVATE, stage_deactivateHandler, false, 0, true);
+		//	this.stage.addEventListener(Event.RESIZE, stage_resizeHandler, false, int.MAX_VALUE, true);
+			//this.stage.addEventListener(Event.DEACTIVATE, stage_deactivateHandler, false, 0, true);
 		}
-		
+		/*
 		private function stage_resizeHandler(event:Event):void
 		{
 			this._starling.stage.stageWidth = this.stage.stageWidth;
@@ -69,6 +69,6 @@ package
 		{
 			this.stage.removeEventListener(Event.ACTIVATE, stage_activateHandler);
 			this._starling.start();
-		}
+		}*/
 	}
 }

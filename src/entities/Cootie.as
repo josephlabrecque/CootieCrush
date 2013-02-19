@@ -11,8 +11,8 @@ package entities
 	public class Cootie extends Sprite
 	{
 		private var dampen:Number = 0.999;
-		private var maxScale:Number = 1.8;
-		private var minScale:Number = 1;
+		private var maxScale:Number = 2.3;
+		private var minScale:Number = 1.3;
 		private var vx:Number = 0;
 		private var vy:Number = 0;
 		private var vz:Number = 0;

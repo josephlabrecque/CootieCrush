@@ -3,10 +3,10 @@ package screens
 	import feathers.controls.Button;
 	import feathers.controls.Screen;
 	
-	import starling.core.Starling;
+	//import starling.core.Starling;
 	import starling.display.Image;
 	import starling.events.Event;
-	import starling.extensions.PDParticleSystem;
+	//import starling.extensions.PDParticleSystem;
 	import starling.textures.Texture;
 	
 	public class AboutScreen extends Screen
@@ -16,14 +16,14 @@ package screens
 		protected var titleImage:Image;
 		protected var starlinglogoImage:Image;
 		protected var logoImage:Image;
-		protected var ps:PDParticleSystem;
+		//protected var ps:PDParticleSystem;
 		
-		[Embed(source="/assets/particles/bgparticles.pex", mimeType="application/octet-stream")]
-		private static const particle:Class;
+		//[Embed(source="/assets/particles/bgparticles.pex", mimeType="application/octet-stream")]
+		//private static const particle:Class;
 		
 		public function AboutScreen()
 		{
-			setupParticles();
+			//setupParticles();
 			
 			var titleTexture:Texture = Main.assets.getTexture("splashtitle");
 			titleImage = new Image(titleTexture);
@@ -42,7 +42,7 @@ package screens
 			starlinglogoImage = new Image(starlinglogoTexture);
 			addChild(starlinglogoImage);
 		}
-		
+		/*
 		private function setupParticles():void
 		{
 			var psConfig:XML = XML(new particle());
@@ -52,14 +52,14 @@ package screens
 			Starling.juggler.add(ps);
 			ps.start();
 		}
-		
+		*/
 		override protected function draw():void
 		{
-			ps.scaleX = 1.5;
+			/*ps.scaleX = 1.5;
 			ps.scaleY = 1.5;
 			ps.y = stage.stageHeight;
 			ps.x = stage.stageWidth/2 - ps.width/2;
-			
+			*/
 			titleImage.width = stage.stageWidth/1.15;
 			titleImage.scaleY = titleImage.scaleX;
 			titleImage.x = stage.stageWidth/2 - titleImage.width/2;

@@ -10,6 +10,8 @@ package screens
 	
 	import feathers.controls.Screen;
 	
+	import org.kissmyas.utils.loanshark.LoanShark;
+	
 	import starling.animation.Tween;
 	import starling.core.Starling;
 	import starling.display.Image;
@@ -21,6 +23,7 @@ package screens
 	import starling.utils.Color;
 	import starling.utils.HAlign;
 	import starling.utils.VAlign;
+	
 	
 	public class GameScreen extends Screen
 	{
@@ -43,6 +46,7 @@ package screens
 		private var levelSound:Sound;
 		private var timeupSound:Sound;
 		private var deadCootie:Image;
+		private var cootiePool:LoanShark;
 		
 		[Embed(source="/assets/fonts/ITCKRIST.TTF", embedAsCFF="false", fontFamily="Kristen")]
 		private static const Kristen:Class;
@@ -57,6 +61,8 @@ package screens
 		private function playGame():void {
 			this.removeEventListener(flash.events.Event.ADDED_TO_STAGE, playGame);
 			
+			cootiePool = new LoanShark(Cootie);
+			
 			bloodSplats = new RenderTexture(stage.stageWidth, stage.stageHeight);
 			var bloodSplatsImage:Image = new Image(bloodSplats);
 			/*bloodSplatsImage.blendMode = BlendMode.MULTIPLY;
@@ -68,6 +74,13 @@ package screens
 			//transImage.blendMode = BlendMode.SCREEN;
 			transImage.alpha = 0;
 			addChild(transImage);
+			
+			transImage.width = stage.stageWidth - 20;
+			transImage.scaleY = transImage.scaleX;
+			transImage.x = 10;
+			transImage.y = stage.stageHeight/2 - transImage.height/2;
+			transImage.touchable = false;
+			
 			
 			var deadCootieTexture:Texture = Main.assets.getTexture("dead");
 			deadCootie = new Image(deadCootieTexture);
@@ -98,14 +111,6 @@ package screens
 			bottomBar.width = stage.stageWidth;
 			bottomBar.touchable = false;
 			addChild(bottomBar);
-		}
-		
-		override protected function draw():void
-		{
-			transImage.width = stage.stageWidth - 20;
-			transImage.x = 10;
-			transImage.y = stage.stageHeight/2 - transImage.height/2;
-			transImage.touchable = false;
 			
 			bottomBar.y = stage.stageHeight - bottomBar.height;
 		}
@@ -124,10 +129,13 @@ package screens
 		private function generateCooties():void
 		{
 			for(var i:int=0; i<maxNumCooties; i++){
-				var c:Cootie = new Cootie();
-				var w:int = 50;
-				c.x = Math.round(0 + ((stage.stageWidth-w) - 0) * Math.random());
-				c.y = Math.round(0 + ((stage.stageHeight-w) - 0) * Math.random());
+				var c:Cootie = cootiePool.borrowObject();
+				//var c:Cootie = new Cootie();
+				var w:int = 45;
+				//c.x = Math.round(0 + ((stage.stageWidth-w) - 0) * Math.random());
+				//c.y = Math.round(0 + ((stage.stageHeight-w) - 0) * Math.random());
+				c.x = (stage.stageWidth/2) - w;//(c.width/2);
+				c.y = (stage.stageHeight/2) - w;//(c.height/2);
 				c.addEventListener(starling.events.TouchEvent.TOUCH, cootieCrushed);
 				addChild(c);
 				cootieCount++;
@@ -153,7 +161,10 @@ package screens
 				var matrix:Matrix = c.transformationMatrix;
 				bloodSplats.draw(deadCootie, matrix, 0.3);
 				
-				removeChild(c);
+				//removeChild(c);
+				
+				cootiePool.returnObject(this.removeChild(c));
+				
 				overallScore += 10;
 				cootieCount--;
 				
