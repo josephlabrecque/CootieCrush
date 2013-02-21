@@ -4,6 +4,8 @@ package screens
 	import flash.events.TimerEvent;
 	import flash.geom.Matrix;
 	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
 	import flash.utils.Timer;
 	
 	import entities.Cootie;
@@ -17,6 +19,7 @@ package screens
 	import starling.display.Image;
 	import starling.events.EnterFrameEvent;
 	import starling.events.TouchEvent;
+	import starling.extensions.PDParticleSystem;
 	import starling.text.TextField;
 	import starling.textures.RenderTexture;
 	import starling.textures.Texture;
@@ -42,24 +45,36 @@ package screens
 		private var topBar:Image;
 		private var bottomBar:Image;
 		private var bloodSplats:RenderTexture;
+		private var bgmSound:Sound;
+		private var musicChannel:SoundChannel;
 		private var squishSound:Sound;
 		private var levelSound:Sound;
 		private var timeupSound:Sound;
 		private var deadCootie:Image;
 		private var cootiePool:LoanShark;
+		protected var ps:PDParticleSystem;
 		
 		[Embed(source="/assets/fonts/ITCKRIST.TTF", embedAsCFF="false", fontFamily="Kristen")]
 		private static const Kristen:Class;
 		
+		[Embed(source="/assets/particles/burst.pex", mimeType="application/octet-stream")]
+		private static const particle:Class;
+		
 		public function GameScreen()
 		{
 			this.addEventListener(flash.events.Event.ADDED_TO_STAGE, playGame);
+			bgmSound = Main.assets.getSound("bgm");
 			squishSound = Main.assets.getSound("squish");
 			levelSound = Main.assets.getSound("level");
 		}
 		
 		private function playGame():void {
 			this.removeEventListener(flash.events.Event.ADDED_TO_STAGE, playGame);
+			
+			var st:SoundTransform = new SoundTransform(0.5);
+			musicChannel = bgmSound.play(0, int.MAX_VALUE, st);
+			
+			setupParticles();
 			
 			cootiePool = new LoanShark(Cootie);
 			
@@ -95,6 +110,17 @@ package screens
 			setupFonts();
 			
 			this.addEventListener(EnterFrameEvent.ENTER_FRAME, gameLoop);
+		}
+		
+		private function setupParticles():void
+		{
+			var psConfig:XML = XML(new particle());
+			var psTexture:Texture = Main.assets.getTexture("burst");
+			ps = new PDParticleSystem(psConfig, psTexture);
+			ps.y = stage.stageHeight/2 - ps.height/2;
+			ps.x = stage.stageWidth/2 - ps.width/2;
+			addChild(ps);
+			Starling.juggler.add(ps);
 		}
 		
 		private function buildBars():void
@@ -140,6 +166,7 @@ package screens
 				addChild(c);
 				cootieCount++;
 			}
+			ps.start(0.3);
 		}
 		
 		private function shiftUI():void
@@ -150,6 +177,8 @@ package screens
 			this.setChildIndex(countdownField, this.numChildren - 1);
 			this.setChildIndex(levelField, this.numChildren - 1);
 			this.setChildIndex(scoreField, this.numChildren - 1);
+			//this.setChildIndex(transImage, this.numChildren);
+			//ps.stop();
 		}
 		
 		private function cootieCrushed(event:TouchEvent):void
@@ -241,6 +270,7 @@ package screens
 		protected function countdownComplete(event:TimerEvent):void
 		{			
 			lose = true;
+			musicChannel.stop();
 			var r:Main = this.root as Main;
 			r._stats.level = currentLevel;
 			r._stats.score = overallScore;

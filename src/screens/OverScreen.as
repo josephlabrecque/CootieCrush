@@ -6,7 +6,7 @@ package screens
 	import feathers.controls.Button;
 	import feathers.controls.Screen;
 	
-	//import starling.core.Starling;
+	import starling.core.Starling;
 	import starling.display.Image;
 	import starling.events.Event;
 	import starling.text.TextField;
@@ -14,13 +14,13 @@ package screens
 	import starling.utils.Color;
 	import starling.utils.HAlign;
 	import starling.utils.VAlign;
-	//import starling.extensions.PDParticleSystem;
+	import starling.extensions.PDParticleSystem;
 	
 	public class OverScreen extends Screen
 	{
 		protected var startButton:Button;
 		protected var exitButton:Button;
-		//protected var ps:PDParticleSystem;
+		protected var ps:PDParticleSystem;
 		protected var titleImage:Image;
 		protected var resultsField:TextField;
 		protected var timeupSound:Sound;
@@ -28,8 +28,8 @@ package screens
 		[Embed(source="/assets/fonts/ITCKRIST.TTF", embedAsCFF="false", fontFamily="Kristen")]
 		private static const Kristen:Class;
 		
-		//[Embed(source="/assets/particles/bgparticles.pex", mimeType="application/octet-stream")]
-		//private static const particle:Class; 
+		[Embed(source="/assets/particles/bgparticles.pex", mimeType="application/octet-stream")]
+		private static const particle:Class; 
 		
 		public function OverScreen()
 		{
@@ -41,7 +41,7 @@ package screens
 			this.removeEventListener(flash.events.Event.ADDED_TO_STAGE, renderScreen);
 			timeupSound = Main.assets.getSound("timeup");
 			
-			//setupParticles();
+			setupParticles();
 			setupFonts();
 			
 			var titleTexture:Texture = Main.assets.getTexture("overtitle");
@@ -77,7 +77,7 @@ package screens
 			resultsField.text += "Thanks for Playing!";
 			this.addChild(resultsField);
 		}
-		/*
+		
 		private function setupParticles():void
 		{
 			var psConfig:XML = XML(new particle());
@@ -87,14 +87,14 @@ package screens
 			Starling.juggler.add(ps);
 			ps.start();
 		}
-		*/
+		
 		override protected function draw():void
 		{
-			/*ps.scaleX = 1.5;
+			ps.scaleX = 1.5;
 			ps.scaleY = 1.5;
 			ps.y = stage.stageHeight;
 			ps.x = stage.stageWidth/2 - ps.width/2;
-			*/
+			
 			titleImage.width = stage.stageWidth/1.15;
 			titleImage.scaleY = titleImage.scaleX;
 			titleImage.x = stage.stageWidth/2 - titleImage.width/2;

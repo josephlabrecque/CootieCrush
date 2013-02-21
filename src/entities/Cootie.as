@@ -29,11 +29,23 @@ package entities
 		private function cootieAdded():void
 		{
 			this.removeEventListener(Event.ADDED_TO_STAGE, cootieAdded);
+			this.addEventListener(Event.REMOVED_FROM_STAGE, cootieRemoved);
 			sw = Math.round(stage.stageWidth);
 			sh = Math.round(stage.stageHeight);
 			skinCootie();
 			this.addEventListener(EnterFrameEvent.ENTER_FRAME, animateCootie);
-		}		
+			trace(this, "added");
+		}
+		
+		private function cootieRemoved():void
+		{
+			this.removeEventListener(Event.ADDED_TO_STAGE, cootieRemoved);
+			Starling.juggler.remove(cootieAnimation);
+			removeChild(cootieAnimation);
+			this.removeEventListener(EnterFrameEvent.ENTER_FRAME, animateCootie);
+			this.addEventListener(Event.ADDED_TO_STAGE, cootieAdded);
+			trace(this, "removed");
+		}
 		
 		private function skinCootie():void
 		{

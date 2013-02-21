@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<application xmlns="http://ns.adobe.com/air/application/3.5">
+<application xmlns="http://ns.adobe.com/air/application/3.6">
 	<id>com.josephlabrecque.CootieCrush</id>
 	<filename>CootieCrush</filename>
 	<name>Cootie Crush</name>
-	<versionNumber>0.0.1</versionNumber>
+	<versionNumber>1.0.0</versionNumber>
 	<!-- <description></description> -->
 	<!-- <copyright></copyright> -->
 	
@@ -16,23 +16,11 @@
         <visible>true</visible>
     </initialWindow>
 	
-	<!-- <icon>
-		<image16x16></image16x16>
-		<image29x29></image29x29>
-		<image32x32></image32x32>
-		<image36x36></image36x36>
-		<image48x48></image48x48>
-		<image50x50></image50x50>
-		<image57x57></image57x57>
-		<image58x58></image58x58>
-		<image72x72></image72x72>
-		<image100x100></image100x100>
-		<image114x114></image114x114>
-		<image128x128></image128x128>
-		<image144x144></image144x144>
-		<image512x512></image512x512>
-		<image1024x1024></image1024x1024>
-	</icon> -->
+	<icon>
+		<image36x36>/assets/images/36.png</image36x36>
+		<image48x48>/assets/images/48.png</image48x48>
+		<image72x72>/assets/images/72.png</image72x72>
+	</icon>
 	
 	<android>
         <manifestAdditions><![CDATA[
@@ -53,6 +41,7 @@
 			    <!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>-->
 			</manifest>
 		]]></manifestAdditions>
+		<colorDepth>16bit</colorDepth>
     </android>
 
 </application>

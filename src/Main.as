@@ -17,6 +17,7 @@ package
 	import screens.OverScreen;
 	import screens.StartScreen;
 	
+	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.utils.AssetManager;
@@ -59,6 +60,7 @@ package
 		{
 			this.removeEventListener(starling.events.Event.ADDED_TO_STAGE, addedToStageHandler);
 			
+			
 			this.theme = new MetalWorksMobileTheme(this.stage);
 			assetManager = new AssetManager();
 			assetManager.enqueue(EmbeddedAssets);
@@ -71,6 +73,10 @@ package
 		
 		private function startGame():void 
 		{
+			
+			CootieCrush.splashBitmap.parent.removeChild(CootieCrush.splashBitmap);
+			CootieCrush.splashBitmap = null;
+			
 			selectSound = assets.getSound("select");
 			
 			this._navigator = new ScreenNavigator();

@@ -44,7 +44,13 @@ package
 		[Embed(source="/assets/particles/bgparticletexture.png")]
 		public static const bgparticletexture:Class;
 		
+		[Embed(source="/assets/particles/burst.png")]
+		public static const burst:Class;
+		
 		/* SOUNDS */
+		
+		[Embed(source="/assets/sounds/bgm.mp3")]
+		public static const bgm:Class;
 		
 		[Embed(source="/assets/sounds/level.mp3")]
 		public static const level:Class;

@@ -1,29 +1,31 @@
 package
 {
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
+	import flash.display3D.Context3DProfile;
+	import flash.display3D.Context3DRenderMode;
 	import flash.events.Event;
-	import flash.geom.Rectangle;
 	
 	import starling.core.Starling;
 	
 	[SWF(frameRate="60",backgroundColor="#000000")]
-	
-	/*
-	
-	1. BG Music
-	2. Finish About Screen and over screen
-	3. Prep Play assets for store
-	
-	*/
+
 	
 	public class CootieCrush extends Sprite
 	{
+		public static var splashBitmap:Bitmap;
 		private var _starling:Starling;
+		
+		[Embed(source="/assets/images/splash.png")]
+		public static const Splash:Class;
 		
 		public function CootieCrush()
 		{
+			var splashImage:Bitmap = new Splash();
+			splashBitmap = new Bitmap(splashImage.bitmapData);
+			
 			if(this.stage)
 			{
 				this.stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -35,40 +37,20 @@ package
 		
 		private function loaderInfo_completeHandler(event:Event):void
 		{
-			//Starling.handleLostContext = true;
-			//Starling.multitouchEnabled = true;
-			this._starling = new Starling(Main, this.stage);
-			//this._starling.showStats = true;
-			this._starling.start();
-		//	this.stage.addEventListener(Event.RESIZE, stage_resizeHandler, false, int.MAX_VALUE, true);
-			//this.stage.addEventListener(Event.DEACTIVATE, stage_deactivateHandler, false, 0, true);
-		}
-		/*
-		private function stage_resizeHandler(event:Event):void
-		{
-			this._starling.stage.stageWidth = this.stage.stageWidth;
-			this._starling.stage.stageHeight = this.stage.stageHeight;
+			splashBitmap.width = stage.stageWidth - 50;
+			splashBitmap.scaleY = splashBitmap.scaleX;
+			splashBitmap.x = stage.stageWidth/2 - splashBitmap.width/2;
+			splashBitmap.y = stage.stageHeight/2 - splashBitmap.height/2;
+			this.addChild(splashBitmap);
 			
-			const viewPort:Rectangle = this._starling.viewPort;
-			viewPort.width = this.stage.stageWidth;
-			viewPort.height = this.stage.stageHeight;
-			try
-			{
-				this._starling.viewPort = viewPort;
-			}
-			catch(error:Error) {}
+			this._starling = new Starling(Main, this.stage, null, null, Context3DRenderMode.AUTO, Context3DProfile.BASELINE);
+			this._starling.stage3D.addEventListener(Event.CONTEXT3D_CREATE, startStarling);
 		}
 		
-		private function stage_deactivateHandler(event:Event):void
+		protected function startStarling(event:Event):void
 		{
-			this._starling.stop();
-			this.stage.addEventListener(Event.ACTIVATE, stage_activateHandler, false, 0, true);
-		}
-		
-		private function stage_activateHandler(event:Event):void
-		{
-			this.stage.removeEventListener(Event.ACTIVATE, stage_activateHandler);
 			this._starling.start();
-		}*/
+		}
+		
 	}
 }
