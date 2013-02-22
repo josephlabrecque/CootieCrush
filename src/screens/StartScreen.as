@@ -14,6 +14,7 @@ package screens
 		protected var startButton:Button;
 		protected var aboutButton:Button;
 		protected var titleImage:Image;
+		protected var fvmImage:Image;
 		protected var ps:PDParticleSystem;
 		
 		[Embed(source="/assets/particles/bgparticles.pex", mimeType="application/octet-stream")]
@@ -26,6 +27,10 @@ package screens
 			var titleTexture:Texture = Main.assets.getTexture("splashtitle");
 			titleImage = new Image(titleTexture);
 			addChild(titleImage);
+			
+			var fvmTexture:Texture = Main.assets.getTexture("fvm");
+			fvmImage = new Image(fvmTexture);
+			addChild(fvmImage);
 			
 			startButton = new Button();
 			startButton.label = "Crush Them!";
@@ -59,6 +64,11 @@ package screens
 			titleImage.scaleY = titleImage.scaleX;
 			titleImage.x = stage.stageWidth/2 - titleImage.width/2;
 			titleImage.y = 0;
+			
+			fvmImage.width = stage.stageWidth/2;
+			fvmImage.scaleY = fvmImage.scaleX;
+			fvmImage.x = stage.stageWidth/2 - fvmImage.width/2;
+			fvmImage.y = stage.stageHeight - fvmImage.height-20;
 			
 			startButton.validate();
 			startButton.x = (stage.stageWidth - startButton.width) / 2;

@@ -71,7 +71,7 @@ package screens
 		private function playGame():void {
 			this.removeEventListener(flash.events.Event.ADDED_TO_STAGE, playGame);
 			
-			var st:SoundTransform = new SoundTransform(0.5);
+			var st:SoundTransform = new SoundTransform(0.8);
 			musicChannel = bgmSound.play(0, int.MAX_VALUE, st);
 			
 			setupParticles();
@@ -93,12 +93,14 @@ package screens
 			transImage.width = stage.stageWidth - 20;
 			transImage.scaleY = transImage.scaleX;
 			transImage.x = 10;
-			transImage.y = stage.stageHeight/2 - transImage.height/2;
+			transImage.y = 50;//stage.stageHeight/2 - transImage.height/2;
 			transImage.touchable = false;
 			
 			
 			var deadCootieTexture:Texture = Main.assets.getTexture("dead");
 			deadCootie = new Image(deadCootieTexture);
+			deadCootie.width += 40;
+			deadCootie.scaleY = deadCootie.scaleX;
 			
 			countdown = new Timer(1000, timeToWin);
 			countdown.addEventListener(TimerEvent.TIMER, countdownTick);
@@ -188,7 +190,7 @@ package screens
 				c.removeEventListener(starling.events.TouchEvent.TOUCH, cootieCrushed);
 				
 				var matrix:Matrix = c.transformationMatrix;
-				bloodSplats.draw(deadCootie, matrix, 0.3);
+				bloodSplats.draw(deadCootie, matrix, 0.4);
 				
 				//removeChild(c);
 				

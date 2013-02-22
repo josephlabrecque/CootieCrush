@@ -9,6 +9,9 @@ package
 		[Embed(source="/assets/images/cootie.png")]
 		public static const cootie:Class;
 		
+		[Embed(source="/assets/images/fvm.png")]
+		public static const fvm:Class;
+		
 		[Embed(source="/assets/images/logo.png")]
 		public static const logo:Class;
 		

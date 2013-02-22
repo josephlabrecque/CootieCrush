@@ -54,7 +54,7 @@ package screens
 			addChild(startButton);
 			
 			exitButton = new Button();
-			exitButton.label = "No thanks... just go away";
+			exitButton.label = "No thanks... close the game";
 			exitButton.addEventListener(starling.events.Event.TRIGGERED, exit_triggeredHandler);
 			addChild(exitButton);
 			
